@@ -1,0 +1,22 @@
+npm install -g create-react-app
+
+create-react-app games_crud
+cd games_crud
+yarn start
+
+npm install --save redux react-redux redux-thunk
+
+# Para usar el plugin de chrome de Redux
+npm install --save-dev redux-devtools-extension
+
+Redux Setup en src/index.js
+1. Crear la carpeta src/reducers, que va a contener las funciones reducers de mi app.
+2. Crear el reducer principal (src/rootReducer.js), que combina los reducers usando combineReducers
+de redux.
+
+3. Crear Store usando createStore de redux, pasandole el rootReducer y los middlewares.
+Estos middlewares se pasan usando la funcion applyMiddleware de redux.
+En este caso tenemos solo redux thunk. Envolvemos todo con el composer de redux dev tools, pero esto es opcional
+
+4. Crear el Provider, que es lo que vincula React con Redux, asi q lo importamos de react-redux,
+y le pasamos la store creada, encerrando toda la app en ese componente Provider
