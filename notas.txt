@@ -1,13 +1,16 @@
-npm install -g create-react-app
+yarn global add create-react-app
+# npm install -g create-react-app
 
 create-react-app games_crud
 cd games_crud
 yarn start
 
-npm install --save redux react-redux redux-thunk
+yarn add redux react-redux redux-thunk
+# npm install --save redux react-redux redux-thunk
 
-# Para usar el plugin de chrome de Redux
-npm install --save-dev redux-devtools-extension
+# Para usar el plugin de chrome de Redux, como dependencia de dev (--save-dev)
+yarn add --dev redux-devtools-extension
+# o npm install --save-dev redux-devtools-extension
 
 Redux Setup en src/index.js
 1. Crear la carpeta src/reducers, que va a contener las funciones reducers de mi app.
@@ -20,3 +23,15 @@ En este caso tenemos solo redux thunk. Envolvemos todo con el composer de redux 
 
 4. Crear el Provider, que es lo que vincula React con Redux, asi q lo importamos de react-redux,
 y le pasamos la store creada, encerrando toda la app en ese componente Provider
+
+
+React Router (4)
+No instalamos el paquete react-router directamente, sino el correspondiente ya sea
+web (react-router-dom) o mobile (react-router-native)
+yarn add react-router-dom
+# o npm install --save react-router-dom
+
+En src/index.js encerramos la app con un Router. Como es navegador usamos
+<BrowserRouter>
+  <App />
+</BrowserRouter>
