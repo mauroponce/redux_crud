@@ -35,3 +35,35 @@ En src/index.js encerramos la app con un Router. Como es navegador usamos
 <BrowserRouter>
   <App />
 </BrowserRouter>
+
+Backend server
+brew install mongo
+
+# start mongo (no background service)
+mongod --config /usr/local/etc/mongod.conf
+
+npm init -y # create package.json for the backend only
+yarn add express mongodb # dependencies for backend
+yarn add --dev nodemon babel-cli babel-preset-es2015 # transpile ES6
+# nodemon monitor for changes and automatically restarts the server.
+
+# crear .babelrc en /backend y configurar el preset para q sea es2015
+
+En la app de React, en package.json, configurar el proxy, que es el server de backend, poniendo
+localhost:8080, que es donde corre el servidor de express.
+
+en package.json del backend, cambiar el script start para que use nodemon
+nodemon --exec babel-node -- server.js
+
+# En mongo, crear database con el nombre indicado en server.js
+> db
+test
+> use crudwithredux # crear y moverme
+switched to db crudwithredux
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+# No aparece porq esta vacia, pero existe
+
+> db.games.insert({ title: 'Super Mario Bros' })

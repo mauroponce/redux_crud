@@ -3,14 +3,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GamesList from './games_list';
-
-function mapStateToProps(state) {
-  return {
-    games: state.games
-  };
-}
+import { fetchGames } from '../../actions';
 
 class GamesPage extends Component {
+  componentDidMount() {
+    this.props.fetchGames();
+  }
   render() {
     return (
       <div>
@@ -20,6 +18,13 @@ class GamesPage extends Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    games: state.games
+  };
+}
+
 export default connect(
   mapStateToProps,
+  { fetchGames }
 )(GamesPage);
