@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { NavLink, Route } from 'react-router-dom';
 import GamesPage from './components/games/games_page';
+import GameForm from './components/games/game_form';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
           <NavLink className="item" activeClassName="active" exact to="/games/new">Add New Game</NavLink>
         </div>
         <Route exact path='/games' component={GamesPage} />
+        <Route exact path='/games/new' component={GameForm} />
       </div>
     );
   }
