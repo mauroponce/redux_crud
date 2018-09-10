@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { NavLink, Route } from 'react-router-dom';
-import GamesList from './components/games/games_page';
+import GamesPage from './components/games/games_page';
 
 class App extends Component {
   render() {
@@ -12,7 +12,7 @@ class App extends Component {
           <NavLink className="item" activeClassName="active" exact to="/games">Games</NavLink>
           <NavLink className="item" activeClassName="active" exact to="/games/new">Add New Game</NavLink>
         </div>
-        <Route exact path='/games' component={GamesList} />
+        <Route exact path='/games' component={GamesPage} />
       </div>
     );
   }

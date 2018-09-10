@@ -7,7 +7,14 @@ const GamesList = ({ games }) => {
   );
 
   const gamesList = (
-    <p>The Games List</p>
+    <ul>
+      {
+        games.map( game => (
+            <li key={game._id}>{game.title}</li>
+          )
+        )
+      }
+    </ul>
   );
 
   return (
