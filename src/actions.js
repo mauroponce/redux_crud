@@ -1,11 +1,18 @@
 export const SET_GAMES = 'SET_GAMES';
-export const SAVE_GAME = 'SAVE_GAME';
+export const ADD_GAME = 'ADD_GAME';
 
 export function setGames(games) {
   return {
     type: SET_GAMES,
     games
   };
+}
+
+export function addGame(game) {
+  return {
+    type: ADD_GAME,
+    game
+  }
 }
 
 function handleResponse(response) {
@@ -26,7 +33,9 @@ export function saveGame(game) {
      headers: {
        "Content-Type" : 'application/json'
      }
-   }).then(handleResponse);
+   })
+   .then(handleResponse)
+   .then(data => dispatch(addGame(data.game)));
  }
 }
 
