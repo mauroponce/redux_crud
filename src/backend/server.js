@@ -25,9 +25,11 @@ mongodb.MongoClient.connect(dbUrl, function(err, client) {
   const db = client.db(dbName);
 
   app.get('/api/games', (req, res) => {
-    db.collection('games').find({}).toArray((err, games) => {
-      res.json({ games });
-    });
+    setTimeout(() => {
+      db.collection('games').find({}).toArray((err, games) => {
+        res.json({ games });
+      });
+    }, 3000);
   });
 
   app.post('/api/games', (req, res) => {
