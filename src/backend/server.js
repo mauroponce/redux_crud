@@ -21,11 +21,11 @@ function validateGame(game) {
   return { errors, isValid };
 }
 
-mongodb.MongoClient.connect(dbUrl, function(err, client) {
+mongodb.MongoClient.connect(dbUrl, function(_err, client) {
   const db = client.db(dbName);
 
   app.get('/api/games', (req, res) => {
-    db.collection('games').find({}).toArray((err, games) => {
+    db.collection('games').find({}).toArray((_err, games) => {
       res.json({ games });
     });
   });
@@ -44,6 +44,12 @@ mongodb.MongoClient.connect(dbUrl, function(err, client) {
     } else {
       res.status(400).json({ errors });
     }
+  });
+
+  app.get(`/api/games/:id`, (req, res) => {
+    db.collection('games').findOne({ "_id": new mongodb.ObjectId(req.params.id)}, (_err, game) => {
+      res.json({ game });
+    });
   });
 
   app.use((req, res) => {

@@ -1,18 +1,35 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { saveGame } from '../../actions';
+import { saveGame, fetchGame } from '../../actions';
 import { Redirect } from 'react-router-dom';
 
 class GameForm extends Component {
+
+  // no need for constructor in ES7
+  // https://medium.com/@fakiolinho/reactjs-and-es7-bbedb9862e61
   state = {
-    id: this.props.game ? this.props.game._id : null,
+    _id: this.props.game ? this.props.game._id : null,
     title: this.props.game ? this.props.game.title : '',
     cover: this.props.game ? this.props.game.cover : '',
     errors: {},
     loading: false,
     done: false
   }
+
+  componentDidMount = () => {
+    const id = this.props.match.params.id
+    if (id) {
+      this.props.fetchGame(id);
+    }
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    // Once game is fetched, set state with next props
+    const { _id, title, cover } = nextProps.game;
+    this.setState({ _id, title, cover });
+  }
+
 
   handleChange = (e) => {
     let name = e.target.name;
@@ -120,4 +137,6 @@ function mapStateToProps(state, props) {
   }
 }
 
-export default connect(mapStateToProps, { saveGame })(GameForm);
+export default connect(mapStateToProps,
+  { saveGame, fetchGame }
+)(GameForm);
