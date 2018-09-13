@@ -15,6 +15,7 @@ class App extends Component {
         </div>
         <Route exact path='/games' component={GamesPage} />
         <Route exact path='/games/new' component={GameForm} />
+        <Route exact path='/games/:id/edit' component={GameForm} />
       </div>
     );
   }
