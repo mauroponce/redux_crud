@@ -47,9 +47,30 @@ mongodb.MongoClient.connect(dbUrl, function(_err, client) {
   });
 
   app.get(`/api/games/:id`, (req, res) => {
-    db.collection('games').findOne({ "_id": new mongodb.ObjectId(req.params.id)}, (_err, game) => {
+    db.collection('games').findOne({ _id: new mongodb.ObjectId(req.params.id)}, (_err, game) => {
       res.json({ game });
     });
+  });
+
+  app.put(`/api/games/:id/update`, (req, res) => {
+    const { errors, isValid } = validateGame(req.body);
+    if (isValid) {
+      const { title, cover } = req.body;
+      db.collection('games').findOneAndUpdate(
+        { _id: new mongodb.ObjectId(req.params.id) },
+        { $set: { title, cover } },
+        { returnOriginal: false },
+        (err, result) => {
+          if (err) {
+            res.status(500).json({ errors: { global: 'Something went wrong' } });
+          } else {
+            res.json({ game: result.value });
+          }
+        }
+      );
+    } else {
+      res.status(400).json({ errors });
+    }
   });
 
   app.use((req, res) => {

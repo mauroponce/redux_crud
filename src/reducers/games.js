@@ -1,4 +1,7 @@
-import { SET_GAMES, ADD_GAME, GAME_FETCHED } from "../actions";
+import {
+  SET_GAMES, ADD_GAME,
+  GAME_FETCHED, GAME_UPDATED
+} from "../actions";
 
 export default function games(state = [], action = {}) {
   switch (action.type) {
@@ -22,6 +25,13 @@ export default function games(state = [], action = {}) {
           action.game
         ];
       }
+    case GAME_UPDATED:
+      // Update in redux store, replacing found game or returning the same game
+      // in the portion of state that has the games (called state)
+      return state.map(item => {
+        if (item._id === action.game._id) return action.game;
+        return item;
+      });
     default:
       return state;
   }
