@@ -1,7 +1,8 @@
 export const SET_GAMES = 'SET_GAMES';
-export const ADD_GAME = 'ADD_GAME';
+export const GAME_ADDED = 'GAME_ADDED';
 export const GAME_FETCHED = 'GAME_FETCHED';
 export const GAME_UPDATED = 'GAME_UPDATED';
+export const GAME_DELETED = 'GAME_DELETED';
 
 export function setGames(games) {
   return {
@@ -17,9 +18,9 @@ export function gameFetched(game) {
   }
 }
 
-export function addGame(game) {
+export function gameAdded(game) {
   return {
-    type: ADD_GAME,
+    type: GAME_ADDED,
     game
   }
 }
@@ -28,6 +29,13 @@ export function gameUpdated(game) {
   return {
     type: GAME_UPDATED,
     game
+  }
+}
+
+export function gameDeleted(gameId) {
+  return {
+    type: GAME_DELETED,
+    gameId
   }
 }
 
@@ -51,7 +59,7 @@ export function saveGame(game) {
      }
    })
    .then(handleResponse)
-   .then(data => dispatch(addGame(data.game)));
+   .then(data => dispatch(gameAdded(data.game)));
  }
 }
 
@@ -69,7 +77,6 @@ export function updateGame(game) {
   }
 }
 
-
 export function fetchGames() {
   return dispatch => {
     fetch('/api/games')
@@ -83,5 +90,18 @@ export function fetchGame(id) {
     fetch(`/api/games/${id}`)
       .then(res => res.json())
       .then(data => dispatch(gameFetched(data.game)));
+  }
+}
+
+export function deleteGame(id) {
+  return dispatch => {
+    return fetch(`/api/games/${id}`, {
+      method: 'delete',
+      headers: {
+        "Content-Type": 'application/json'
+      }
+    })
+      .then(handleResponse)
+      .then(data => dispatch(gameDeleted(id)));
   }
 }

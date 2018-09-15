@@ -2,8 +2,8 @@
 // https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import GamesList from './games_list';
-import { fetchGames } from '../../actions';
+import GamesList from './GamesList';
+import { fetchGames, deleteGame } from '../../actions';
 
 class GamesPage extends Component {
   componentDidMount() {
@@ -12,7 +12,7 @@ class GamesPage extends Component {
   render() {
     return (
       <div>
-        <GamesList games={this.props.games}/>
+        <GamesList games={this.props.games} deleteGame={this.props.deleteGame} />
       </div>
     );
   }
@@ -26,5 +26,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { fetchGames }
+  { fetchGames, deleteGame }
 )(GamesPage);

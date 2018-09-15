@@ -1,15 +1,15 @@
 import React from 'react';
-import GameCard from './game_card';
+import GameCard from './GameCard';
 // rsc para autocompletado de un stateless component
 // https://marketplace.visualstudio.com/items?itemName=xabikos.ReactSnippets
-const GamesList = ({ games }) => {
+const GamesList = ({ games, deleteGame }) => {
   const emptyMessage = (
     <p>There are no games yet in your collection</p>
   );
 
   const gamesList = (
     <div className="ui four cards">
-      { games.map(game => <GameCard game={game} key={game._id} />) }
+      {games.map(game => <GameCard game={game} key={game._id} deleteGame={deleteGame} />) }
     </div>
   );
 

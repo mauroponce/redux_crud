@@ -47,7 +47,7 @@ mongodb.MongoClient.connect(dbUrl, function(_err, client) {
   });
 
   app.get(`/api/games/:id`, (req, res) => {
-    db.collection('games').findOne({ _id: new mongodb.ObjectId(req.params.id)}, (_err, game) => {
+    db.collection('games').findOne({ _id: new mongodb.ObjectId(req.params.id) }, (_err, game) => {
       res.json({ game });
     });
   });
@@ -71,6 +71,18 @@ mongodb.MongoClient.connect(dbUrl, function(_err, client) {
     } else {
       res.status(400).json({ errors });
     }
+  });
+
+  app.delete(`/api/games/:id`, (req, res) => {
+    db.collection('games').deleteOne(
+      { _id: new mongodb.ObjectId(req.params.id) },
+      (err, result) => {
+        if (err) {
+          res.status(500).json({ errors: { global: 'Something went wrong' } });
+        } else {
+          res.json({ }); // empty json object for delete
+        }
+    });
   });
 
   app.use((req, res) => {

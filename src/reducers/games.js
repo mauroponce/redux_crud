@@ -1,13 +1,13 @@
 import {
-  SET_GAMES, ADD_GAME,
-  GAME_FETCHED, GAME_UPDATED
+  SET_GAMES, GAME_ADDED,
+  GAME_FETCHED, GAME_UPDATED, GAME_DELETED
 } from "../actions";
 
 export default function games(state = [], action = {}) {
   switch (action.type) {
     case SET_GAMES:
       return action.games;
-    case ADD_GAME:
+    case GAME_ADDED:
       return [
         ...state,
         action.game
@@ -19,7 +19,7 @@ export default function games(state = [], action = {}) {
           if(item._id === action.game._id) return action.game;
           return item;
         });
-      } else { // just add to the bottom of collection like in ADD_GAME
+      } else { // just add to the bottom of collection like in GAME_ADDED
         return [
           ...state,
           action.game
@@ -32,6 +32,8 @@ export default function games(state = [], action = {}) {
         if (item._id === action.game._id) return action.game;
         return item;
       });
+    case GAME_DELETED:
+      return state.filter(item => item._id !== action.gameId);
     default:
       return state;
   }
