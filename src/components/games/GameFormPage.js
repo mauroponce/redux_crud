@@ -26,13 +26,13 @@ class GameFormPage extends Component {
   saveGame = ({ _id, title, cover }) => {
     // return promise and catch err in form,
     // where errors are displayed
-    if (_id) {
+    if (_id) { // existing record
       return this.props.updateGame({ _id, title, cover }).then(
         () => {
           this.setState({ redirect: true })
         }
       );
-    } else {
+    } else { // new record
       return this.props.saveGame({ title, cover }).then(
         () => {
           this.setState({ redirect: true })
